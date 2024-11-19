@@ -8,37 +8,23 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
+            padding: 20px;
         }
         img {
             max-width: 100%;
             height: auto;
         }
         a {
-            display: block;
-            margin: 20px 0;
-            font-size: 18px;
-            color: #007BFF;
+            color: blue;
             text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .dynamic-text {
-            margin-top: 30px;
-            font-size: 24px;
-            font-style: italic;
-            color: #333;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to My Landing Page</h1>
-    <!-- Display an image -->
-    <img src="https://via.placeholder.com/600x300" alt="Placeholder Image">
-    <!-- Link to your repository -->
-    <a href="https://github.com/fys3/myrepo" target="_blank">Visit My GitHub Repository</a>
-    <!-- Display the dynamic text -->
-    <p class="dynamic-text">{{ dynamic_text }}</p>
+    <img src="{{ url_for('static', filename='image.jpg') }}" alt="Landing Page Image">
+    <p><strong>Dynamic Text:</strong> {{ text }}</p>
+    <a href="https://github.com/fys3/myrepo" target="_blank">Visit My Repository</a>
 </body>
 </html>
