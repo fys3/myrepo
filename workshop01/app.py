@@ -12,12 +12,12 @@ quotes = [
     "It is pitch dark. You are likely to be eaten by a grue."
 ]
 
-@app.route('/')
+@app.route("/")
 def index():
-    # Select a random quote
+    # Choose a random quote
     dynamic_text = random.choice(quotes)
-    # Pass the random quote to the template
-    return render_template('index.html', dynamic_text=dynamic_text)
+    # Render the HTML template with the dynamic text
+    return render_template("index.html", text=dynamic_text)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
