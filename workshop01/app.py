@@ -14,7 +14,9 @@ quotes = [
 
 @app.route("/")
 def index():
-    # Choose a random quote
+    # Select a random quote
     dynamic_text = random.choice(quotes)
-    # Render the HTML template with the dynamic text
     return render_template("index.html", text=dynamic_text)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
