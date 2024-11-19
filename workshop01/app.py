@@ -18,6 +18,3 @@ def index():
     dynamic_text = random.choice(quotes)
     # Render the HTML template with the dynamic text
     return render_template("index.html", text=dynamic_text)
-
-if __name__ == "__main__":
-    app.run(debug=True)
