@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>Main Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
             padding: 20px;
         }
         img {
-            max-width: 100%;
+            max-width: 50%;
             height: auto;
         }
         a {
@@ -22,9 +22,9 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to My Landing Page</h1>
+    <h3>Welcome to My Repo Page</h3>
     <img src="{{ url_for('static', filename='image.jpg') }}" alt="Landing Page Image">
     <p><strong>Dynamic Text:</strong> {{ text }}</p>
-    <a href="https://github.com/fys3/myrepo" target="_blank">Visit My Repository</a>
+    <a href="https://github.com/fys3/myrepo" target="_blank">Link to My Repository</a>
 </body>
 </html>
