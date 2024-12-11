@@ -1,0 +1,79 @@
+---
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: minio-hsvc
+  namespace: minio 
+  labels: 
+    app: minio
+spec:
+  clusterIP: None
+  selector:
+    app: minio 
+    name: minio-po
+  ports:
+  - name: data
+    port: 9000
+    targetPort: 9000
+  - name: console
+    port: 9090
+    targetPort: 9090
+
+--- 
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  name: minio-sts 
+  namespace: minio 
+  labels: 
+    app: minio 
+spec:
+  serviceName: minio-hsvc
+  replicas: 4
+  selector: 
+    matchLabels:
+      app: minio 
+      name: minio-po
+  volumeClaimTemplates:
+  - metadata:
+      name: data-vol
+    spec:
+      storageClassName: do-block-storage
+      accessModes:
+      - ReadWriteOnce 
+      resources:
+        requests:
+          storage: 1Gi
+  template: 
+    metadata: 
+      name: minio-po 
+      labels:
+        app: minio 
+        name: minio-po
+    spec: 
+      initContainers:
+      - name: busybox-container
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -c
+        - "chown 1001:1001 /data"
+        volumeMounts:
+        - name: data-vol 
+          mountPath: /data
+      containers:
+      - name: minio-container 
+        image: bitnami/minio:2024.11.7
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: minio-cm
+        - secretRef:
+            name: minio-secret
+        ports: 
+        - containerPort: 9000
+        - containerPort: 9090
+        volumeMounts:
+        - name: data-vol 
+          mountPath: /data

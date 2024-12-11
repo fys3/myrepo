@@ -1,0 +1,20 @@
+#Create a volume
+docker volume create db-data
+
+#Create network
+docker network create -d bridge app-net
+
+#SQL container
+docker run -d \
+  --mount type=volume,src=db-data,dst=/var/lib/mysql \
+  --network app-net \
+  -e MYSQL_ROOT_PASSWORD=changeit \
+  --name northwinddb stackupiss/northwind-db:v1
+
+#APP container
+docker run -d -p 8080:3000 \
+  --network app-net \
+  -e DB_HOST=northwinddb \
+  -e DB_USER=root \
+  -e DB_PASSWORD=changeit \
+  --name northwindapp stackupiss/northwind-app:v1
